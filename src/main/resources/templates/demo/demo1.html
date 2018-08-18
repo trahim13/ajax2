@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax in Spring Boot</title>
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#buttonDemo1').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ajaxrest/demo1",
+                    success: function (result) {
+                        $("#result1").text(result);
+
+                    }
+                })
+
+
+            });
+
+
+
+
+            $('#buttonDemo2').click(function () {
+
+                var fullName = $('#fullName').val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ajaxrest/demo2/" + fullName,
+                    success: function (result) {
+                        $("#result2").text(result);
+
+                    }
+                })
+
+            });
+
+
+            $('#buttonDemo3').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ajaxrest/demo3",
+                    dataType:"json",
+                    contentType:"application/json",
+                    success: function (result) {
+                        var s = '</br>ID : ' + result.id;
+                        s += '</br>Name : ' + result.name;
+                        s += '</br>Price : ' + result.price;
+                        $("#result3").html(s);
+
+                    }
+                })
+            });
+
+
+            $('#buttonDemo4').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/ajaxrest/demo4",
+                    dataType:"json",
+                    contentType:"application/json",
+                    success: function (result) {
+
+                        var s = '';
+                        for (i = 0; i < result.length; i++) {
+                            s += '</br>Name' + result[i].id;
+                            s += '</br>Name :' + result[i].name;
+                            s += '</br>Price :' + result[i].price;
+                            s+='</br>=========================';
+                        }
+
+                        $("#result4").html(s);
+
+                    }
+                })
+
+
+            });
+        });
+    </script>
+</head>
+<body>
+
+<fieldset>
+    <legend>Demo1</legend>
+    <input type="button" value="Demo 1" id="buttonDemo1"/>
+    </br>
+    <span id="result1"></span>
+</fieldset>
+
+<fieldset>
+    <legend>Demo2</legend>
+    <label for="fullName">Full name</label>
+    <input type="text"  id="fullName" placeholder="Inter your name"/>
+    <input type="button" value="Demo 2" id="buttonDemo2"/>
+    </br>
+    <span id="result2"></span>
+</fieldset>
+
+
+<fieldset>
+    <legend>Demo3</legend>
+    <input type="button" value="Demo 3" id="buttonDemo3"/>
+    </br>
+    <span id="result3"></span>
+</fieldset>
+
+<fieldset>
+    <legend>Demo4</legend>
+    <input type="button" value="Demo 3" id="buttonDemo4"/>
+    </br>
+    <span id="result4"></span>
+</fieldset>
+
+
+
+
+</body>
+</html>
